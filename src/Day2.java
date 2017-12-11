@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.function.ToIntFunction;
 
 public class Day2 {
 	public static void main(String[] args) {
@@ -20,16 +21,37 @@ public class Day2 {
 				"3928\t107\t3406\t123\t2111\t2749\t223\t125\t134\t146\t3875\t1357\t508\t1534\t4002\t4417\n";
 
 		String[] rows = spreadsheet.split("\n");
-		int[] checksums = calculateChecksums(rows);
-		System.out.println(Arrays.stream(checksums).sum());
+
+		int[] subtractionChecksums = calculateChecksums(Day2::largestDifference, rows);
+		System.out.println(Arrays.stream(subtractionChecksums).sum());
+
+		int[] divisionChecksums = calculateChecksums(Day2::remainderlessDivision, rows);
+		System.out.println(Arrays.stream(divisionChecksums).sum());
 	}
 
-	private static int[] calculateChecksums(String[] rows) {
-		return Arrays.stream(rows).mapToInt(Day2::calculateChecksum).toArray();
+	private static int[] calculateChecksums(ToIntFunction<String> checksumStrategy, String[] rows) {
+		return Arrays.stream(rows).mapToInt(checksumStrategy).toArray();
 	}
 
-	private static int calculateChecksum(String row) {
-		int[] cells = Arrays.stream(row.split("\t")).mapToInt(Integer::parseInt).toArray();
+	private static int largestDifference(String row) {
+		int[] cells = getCells(row);
 		return Arrays.stream(cells).max().getAsInt() - Arrays.stream(cells).min().getAsInt();
+	}
+
+	private static int remainderlessDivision(String row) {
+		int[] cells = getCells(row);
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells.length; j++) {
+				if (i == j) continue;
+				if (cells[i] % cells[j] == 0) {
+					return cells[i] / cells[j];
+				}
+			}
+		}
+		throw new IllegalArgumentException("Row contains no cells which result in a remainder-less division");
+	}
+
+	private static int[] getCells(String row) {
+		return Arrays.stream(row.split("\t")).mapToInt(Integer::parseInt).toArray();
 	}
 }
