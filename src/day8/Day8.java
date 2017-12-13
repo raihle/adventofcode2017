@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day8A {
+public class Day8 {
 	public static void main(String[] args) {
 		Registers registers = new Registers();
 		String input = "b inc 580 if bkd > -1\n" +
@@ -1012,20 +1012,20 @@ public class Day8A {
 				"cp dec 331 if fz < 1909\n" +
 				"fw dec -971 if fz < 1922\n";
 		String[] rows = input.split("\n");
+
+		String highestRegister = "";
+		int highestValue = Integer.MIN_VALUE;
 		for (String row : rows) {
 			Instruction instruction = new Instruction(row);
 			instruction.run(registers);
-		}
-		String highestRegister = "";
-		int highestValue = Integer.MIN_VALUE;
-		for (String register : registers.base.keySet()) {
-			if (registers.get(register) > highestValue) {
-				highestRegister = register;
-				highestValue = registers.get(register);
+			if (registers.highestValue > highestValue) {
+				highestValue = registers.highestValue;
+				highestRegister = registers.highestRegister;
 			}
 		}
 
-		System.out.println(highestRegister + ": " + highestValue);
+		System.out.println("Highest final: " + registers.highestValue + " (" + registers.highestRegister + ")");
+		System.out.println("Highest ever:  " + highestValue + " (" + highestRegister + ")");
 	}
 
 	static class Instruction {
@@ -1066,6 +1066,8 @@ public class Day8A {
 
 	static class Registers {
 		private Map<String, Integer> base;
+		private String highestRegister;
+		private int highestValue;
 
 		Registers() {
 			base = new HashMap<>();
@@ -1079,6 +1081,10 @@ public class Day8A {
 		}
 
 		void put(String register, int newValue) {
+			if (newValue > highestValue) {
+				highestRegister = register;
+				highestValue = newValue;
+			}
 			base.put(register, newValue);
 		}
 
