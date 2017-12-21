@@ -1,5 +1,7 @@
 package day3;
 
+import util.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +13,7 @@ import static day3.Day3.layerOfCell;
 
 public class Day3B {
 	public static void main(String[] args) {
-		long valueToBeat = 325489;
+		long valueToBeat = Integer.parseInt(Util.firstLine("input", Day3B.class));
 		int cell = 1;
 
 		while (valueOfCell(cell) <= valueToBeat) {
