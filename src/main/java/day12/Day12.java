@@ -22,8 +22,17 @@ public class Day12 {
 			adjacent.put(name, new HashSet<>(Arrays.asList(listedConnections)));
 		}
 
+		System.out.println("Nodes: " + adjacent.size());
+
 		Set<String> reachableFrom0 = getReachableNodes("0");
-		System.out.println(reachableFrom0.size());
+		System.out.println("Reachable from 0: " + reachableFrom0.size());
+
+		// Calculate all reachability groups
+		Set<Set<String>> distinctGroups = new HashSet<>();
+		for (String start : adjacent.keySet()) {
+			distinctGroups.add(getReachableNodes(start));
+		}
+		System.out.println("Distinct groups: " + distinctGroups.size());
 	}
 
 	private static void calculateReachableNodes(String name) {
