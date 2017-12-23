@@ -35,8 +35,8 @@ public class Day8 {
 		private static final String INSTRUCTION_REGEX = "^(\\w+) (inc|dec) (-?\\d+) if (\\w+) (<|<=|>|>=|==|!=) (-?\\d+)$";
 		private static final Pattern INSTRUCTION_PATTERN = Pattern.compile(INSTRUCTION_REGEX);
 
-		private Predicate<Registers> condition;
-		private Consumer<Registers> action;
+		private final Predicate<Registers> condition;
+		private final Consumer<Registers> action;
 
 		Instruction(String row) {
 			Matcher matcher = INSTRUCTION_PATTERN.matcher(row);
@@ -68,7 +68,7 @@ public class Day8 {
 	}
 
 	static class Registers {
-		private Map<String, Integer> base;
+		private final Map<String, Integer> base;
 		private String highestRegister;
 		private int highestValue;
 
@@ -101,7 +101,7 @@ public class Day8 {
 		INC("inc", (current, amount) -> current + amount),
 		DEC("dec", (current, amount) -> current - amount);
 
-		private static Map<String, MutationOperator> lookup = new HashMap<>();
+		private static final Map<String, MutationOperator> lookup = new HashMap<>();
 
 		static {
 			for (MutationOperator s : MutationOperator.values())
@@ -134,10 +134,11 @@ public class Day8 {
 		LESS_THAN_OR_EQUAL("<=", (current, amount) -> current <= amount),
 		GREATER_THAN(">", (current, amount) -> current > amount),
 		GREATER_THAN_OR_EQUAL(">=", (current, amount) -> current >= amount),
+		@SuppressWarnings("Convert2MethodRef")
 		EQUAL("==", (current, amount) -> current.equals(amount)),
 		NOT_EQUAL("!=", (current, amount) -> !current.equals(amount));
 
-		private static Map<String, ComparisonOperator> lookup = new HashMap<>();
+		private static final Map<String, ComparisonOperator> lookup = new HashMap<>();
 
 		static {
 			for (ComparisonOperator s : ComparisonOperator.values())

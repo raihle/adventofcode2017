@@ -38,7 +38,7 @@ public class Day10 {
 	}
 
 	private static class KnotHash {
-		private int[] marks;
+		private final int[] marks;
 		private int currentMark;
 		private int skipLength;
 

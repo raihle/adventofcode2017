@@ -47,7 +47,7 @@ public class Day7 {
 		private final String name;
 		private final int weight;
 		private final String[] children;
-		private Map<String, Node> nodes;
+		private final Map<String, Node> nodes;
 		private Optional<Integer> totalWeight;
 
 		Node(String name, int weight, String[] children, Map<String, Node> nodes) {

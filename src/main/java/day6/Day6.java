@@ -27,7 +27,7 @@ public class Day6 {
 	}
 
 	private static class MemoryBanks {
-		int[] counts;
+		final int[] counts;
 
 		MemoryBanks(int[] initialCounts) {
 			counts = initialCounts.clone();

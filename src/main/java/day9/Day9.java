@@ -22,7 +22,7 @@ public class Day9 {
 	}
 
 	static class Garbage implements Item {
-		int length;
+		final int length;
 
 		Garbage(String content) {
 			length = content.length() - 2;
@@ -73,35 +73,40 @@ public class Day9 {
 	 */
 	static Pair<Item, String> scan(int baseScore, String content) {
 		char firstChar = content.charAt(0);
-		if (firstChar == '<') {
-			return scanGarbage(content);
-		} else if (firstChar == '{') {
-			return scanGroup(baseScore, content);
-		} else {
-			throw new IllegalArgumentException("Content should only start with < or {, was '" + firstChar + "'");
+		switch (firstChar) {
+			case '<':
+				return scanGarbage(content);
+			case '{':
+				return scanGroup(baseScore, content);
+			default:
+				throw new IllegalArgumentException("Content should only start with < or {, was '" + firstChar + "'");
 		}
 	}
 
 	private static Pair<Item, String> scanGroup(int baseScore, String content) {
 		int nestLevel = 0;
 		for (int i = 1; i < content.length(); i++) {
-			if (content.charAt(i) == '<') {
-				// Skip garbage when looking for end of group
-				i = content.substring(i).indexOf('>') + i;
-			} else if (content.charAt(i) == '{') {
-				// Keep track of nested groups
-				nestLevel++;
-			} else if (content.charAt(i) == '}') {
-				// Decrease nesting level if nested, or end group if not nested
-				if (nestLevel == 0) {
-					if (i == content.length() - 1) {
-						return new Pair<>(new Group(baseScore, content), "");
+			switch (content.charAt(i)) {
+				case '<':
+					// Skip garbage when looking for end of group
+					i = content.substring(i).indexOf('>') + i;
+					break;
+				case '{':
+					// Keep track of nested groups
+					nestLevel++;
+					break;
+				case '}':
+					// Decrease nesting level if nested, or end group if not nested
+					if (nestLevel == 0) {
+						if (i == content.length() - 1) {
+							return new Pair<>(new Group(baseScore, content), "");
+						} else {
+							return new Pair<>(new Group(baseScore, content.substring(0, i + 1)), content.substring(i + 2));
+						}
 					} else {
-						return new Pair<>(new Group(baseScore, content.substring(0, i + 1)), content.substring(i + 2));
+						nestLevel--;
 					}
-				} else {
-					nestLevel--;
-				}
+					break;
 			}
 		}
 		throw new IllegalArgumentException("Group brackets did not match");
@@ -117,8 +122,8 @@ public class Day9 {
 	}
 
 	static class Pair<A, B> {
-		A a;
-		B b;
+		final A a;
+		final B b;
 
 		Pair(A a, B b) {
 			this.a = a;
