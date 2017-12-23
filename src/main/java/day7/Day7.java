@@ -1,9 +1,7 @@
 package day7;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import util.Input;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,8 +10,8 @@ import java.util.stream.Collectors;
 public class Day7 {
 	private static final Pattern NODE_PATTERN = Pattern.compile("^(\\w+) \\((\\d+)\\)(?: -> (.*))?$");
 
-	public static void main(String[] args) throws URISyntaxException, IOException {
-		List<String> lines = Files.readAllLines(Paths.get(Day7.class.getResource("input").toURI()));
+	public static void main(String[] args) {
+		List<String> lines = Input.allLines("day7");
 		Map<String, Node> nodeStorage = new HashMap<>();
 		List<Node> nodeList = lines.stream().map(l -> parseNode(l, nodeStorage)).collect(Collectors.toList());
 		nodeList.forEach(n -> nodeStorage.put(n.name, n));

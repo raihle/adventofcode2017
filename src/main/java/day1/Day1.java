@@ -1,10 +1,10 @@
 package day1;
 
-import util.Util;
+import util.Input;
 
 public class Day1 {
 	public static void main(String[] args) {
-		String digits = Util.firstLine("input", Day1.class);
+		String digits = Input.firstLine("day1");
 		String repeatedDigits = keepRepeatedChars(digits);
 		System.out.println(sumDigits(repeatedDigits));
 

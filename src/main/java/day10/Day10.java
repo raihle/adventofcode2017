@@ -1,13 +1,13 @@
 package day10;
 
-import util.Util;
+import util.Input;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Day10 {
 	public static void main(String[] args) {
-		String input = Util.firstLine("input", Day10.class);
+		String input = Input.firstLine("day10");
 		int[] lengthsA = parseInputA(input);
 		int[] lengthsB = parseInputB(input);
 

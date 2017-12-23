@@ -1,6 +1,6 @@
 package day8;
 
-import util.Util;
+import util.Input;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class Day8 {
 	public static void main(String[] args) {
 		Registers registers = new Registers();
-		List<String> rows = Util.allLines("input", Day8.class);
+		List<String> rows = Input.allLines("day8");
 
 		String highestRegister = "";
 		int highestValue = Integer.MIN_VALUE;

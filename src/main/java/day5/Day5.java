@@ -1,13 +1,13 @@
 package day5;
 
-import util.Util;
+import util.Input;
 
 import java.util.List;
 import java.util.function.Function;
 
 public class Day5 {
 	public static void main(String[] args) {
-		List<String> input = Util.allLines("input", Day5.class);
+		List<String> input = Input.allLines("day5");
 		int[] jumps = input.stream().mapToInt(Integer::parseInt).toArray();
 
 		System.out.println(calculateJumpCount(jumps, Day5::strategyA));

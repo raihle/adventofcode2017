@@ -1,12 +1,12 @@
 package day6;
 
-import util.Util;
+import util.Input;
 
 import java.util.*;
 
 public class Day6 {
 	public static void main(String[] args) {
-		String input = Util.firstLine("input", Day6.class);
+		String input = Input.firstLine("day6");
 		int[] counts = Arrays.stream(input.split("\t")).mapToInt(Integer::parseInt).toArray();
 		MemoryBanks banks = new MemoryBanks(counts);
 

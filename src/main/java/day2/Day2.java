@@ -1,6 +1,6 @@
 package day2;
 
-import util.Util;
+import util.Input;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.function.ToIntFunction;
 
 public class Day2 {
 	public static void main(String[] args) {
-		List<String> rows = Util.allLines("input", Day2.class);
+		List<String> rows = Input.allLines("day2");
 
 		int[] subtractionChecksums = calculateChecksums(Day2::largestDifference, rows);
 		System.out.println(Arrays.stream(subtractionChecksums).sum());

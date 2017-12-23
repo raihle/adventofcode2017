@@ -1,13 +1,13 @@
 package day3;
 
-import util.Util;
+import util.Input;
 
 import static day3.Day3.cellsPerSideOfLayer;
 import static day3.Day3.lastCellInLayer;
 
 public class Day3A {
 	public static void main(String[] args) {
-		int desiredCell = Integer.parseInt(Util.firstLine("input", Day3A.class));
+		int desiredCell = Integer.parseInt(Input.firstLine("day3"));
 		int layer = Day3.layerOfCell(desiredCell);
 		System.out.println(layer + distanceToOrthogonalCellInLayer(layer, desiredCell));
 	}

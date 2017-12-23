@@ -1,6 +1,6 @@
 package day9;
 
-import util.Util;
+import util.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Day9 {
 
 	public static void main(String[] args) {
-		String input = Util.firstLine("input", Day9.class);
+		String input = Input.firstLine("day9");
 		String escapesRemoved = input.replaceAll("!.", "");
 
 		Group firstGroup = new Group(1, escapesRemoved);
@@ -82,7 +82,7 @@ public class Day9 {
 		}
 	}
 
-	static Pair<Item, String> scanGroup(int baseScore, String content) {
+	private static Pair<Item, String> scanGroup(int baseScore, String content) {
 		int nestLevel = 0;
 		for (int i = 1; i < content.length(); i++) {
 			if (content.charAt(i) == '<') {
@@ -107,7 +107,7 @@ public class Day9 {
 		throw new IllegalArgumentException("Group brackets did not match");
 	}
 
-	static Pair<Item, String> scanGarbage(String content) {
+	private static Pair<Item, String> scanGarbage(String content) {
 		int i = content.indexOf('>');
 		if (i == content.length() - 1) {
 			return new Pair<>(new Garbage(content), "");
